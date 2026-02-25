@@ -172,7 +172,9 @@
         </a>
       <%_ } else { _%>
         <%_ let title;
-            if (is_archive()) {
+            if (config.homeText?.enable && is_home()) {
+              title = config.homeText.title;
+            } else if (is_archive()) {
               title = __('archives');
             } else if (is_category()) {
               title = __('categories');
@@ -195,6 +197,7 @@
         </h2>
       <%_ } else { _%>
         <%_ let subtitle;
+            let useTypewriter = false;
             if (is_archive()) {
               if (is_month()) {
                 subtitle = page.year + '/' + page.month;
@@ -213,12 +216,15 @@
               } else {
                 subtitle = null;
               }
+            } else if (config.homeText?.enable && is_home() && config.homeText.subtitle) {
+              subtitle = config.homeText.subtitle.join('|');
+              useTypewriter = config.homeText.typewriter?.enable;
             } else if (theme.subtitle || config.subtitle) {
               subtitle = theme.subtitle || config.subtitle;
             } _%>
         <h2 id="subtitle-wrap" data-aos="<%= theme.animation.options.header.subTitle %>">
           <%_ if (subtitle) { _%>
-            <span id="subtitle"><%= subtitle %></span>
+            <span id="subtitle"<% if (useTypewriter) { %> data-typewriter="true" data-speed="<%= config.homeText.typewriter.speed %>" data-delete-speed="<%= config.homeText.typewriter.deleteSpeed %>" data-pause-time="<%= config.homeText.typewriter.pauseTime %>"<% } %>><%= subtitle %></span>
           <%_ } _%>
         </h2>
       <%_ } _%>

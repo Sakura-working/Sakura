@@ -465,3 +465,49 @@ if (imgElement.src || imgElement.style.background) {
 }
 
 window.generateSchemeHandler?.();
+
+// homeText typewriter effect
+function initTypewriter() {
+  const subtitle = _$("#subtitle");
+  if (!subtitle || subtitle.dataset.typewriter !== "true") return;
+
+  const texts = subtitle.textContent.split('|').map(t => t.trim()).filter(t => t);
+  if (texts.length === 0) return;
+
+  const speed = parseInt(subtitle.dataset.speed) || 100;
+  const deleteSpeed = parseInt(subtitle.dataset.deleteSpeed) || 50;
+  const pauseTime = parseInt(subtitle.dataset.pauseTime) || 2000;
+
+  let textIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  function type() {
+    const currentText = texts[textIndex];
+
+    if (isDeleting) {
+      subtitle.textContent = currentText.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      subtitle.textContent = currentText.substring(0, charIndex + 1);
+      charIndex++;
+    }
+
+    let timeout = isDeleting ? deleteSpeed : speed;
+
+    if (!isDeleting && charIndex === currentText.length) {
+      timeout = pauseTime;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      textIndex = (textIndex + 1) % texts.length;
+    }
+
+    setTimeout(type, timeout);
+  }
+
+  subtitle.textContent = '';
+  setTimeout(type, 500);
+}
+
+initTypewriter();
