@@ -12,21 +12,16 @@ language: zh-CN
 timezone: 'Asia/Shanghai'
 
 #hometext
-homeText: {
- enable: true, // 在主页显示自定义文本
- title: "专属自己的小窝", // 主页横幅主标题
-
-	subtitle: [
-				"尽可能继续存活下去",
-	],
-		typewriter: {
-		enable: true, // 启用副标题打字机效果
-
-		speed: 100, // 打字速度（毫秒）
-				deleteSpeed: 50, // 删除速度（毫秒）
-				pauseTime: 2000, // 完全显示后的暂停时间（毫秒）
-			},
-}
+homeText:
+  enable: true  # 在主页显示自定义文本
+  title: "专属自己的小窝"  # 主页横幅主标题
+  subtitle:
+    - "尽可能继续存活下去"
+  typewriter:
+    enable: true  # 启用副标题打字机效果
+    speed: 100  # 打字速度（毫秒）
+    deleteSpeed: 50  # 删除速度（毫秒）
+    pauseTime: 2000  # 完全显示后的暂停时间（毫秒）
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
